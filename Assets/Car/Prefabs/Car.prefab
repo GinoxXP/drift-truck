@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 2418460907183822334}
   - component: {fileID: 2418460907183822307}
   - component: {fileID: 2418460907183822332}
+  - component: {fileID: 8388103500701596113}
+  - component: {fileID: 6571116429267752429}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -181,6 +183,33 @@ MonoBehaviour:
   visualRotationMaxDegree: 40
   visualRotationSpeed: 3
   visualResetRotationSpeed: 10
+--- !u!114 &8388103500701596113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2418460907183822306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4369aeb08fc50d408ae78dd67f59a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 20
+  currentCount: 0
+--- !u!65 &6571116429267752429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2418460907183822306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3773354052479175230
 GameObject:
   m_ObjectHideFlags: 0
