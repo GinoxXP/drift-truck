@@ -1317,10 +1317,6 @@ PrefabInstance:
       propertyPath: currentCount
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 2850638297671171517, guid: c1d57705ef3a14e459b5900b9ad42d8c, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4115618585833786808, guid: c1d57705ef3a14e459b5900b9ad42d8c, type: 3}
       propertyPath: m_Name
       value: Loading Zone
