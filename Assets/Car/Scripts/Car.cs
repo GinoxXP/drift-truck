@@ -29,6 +29,8 @@ public class Car : MonoBehaviour
     private ParticleSystem burstParticles;
     [SerializeField]
     private ParticleSystem smokeParticles;
+    [SerializeField]
+    private ParticleSystem rubberParticles;
 
     private new Rigidbody rigidbody;
     private float speed;
@@ -39,6 +41,7 @@ public class Car : MonoBehaviour
 
         burstParticles.Play();
         smokeParticles.Play();
+        rubberParticles.Stop();
 
         rigidbody.velocity = Vector3.zero;
     }
@@ -60,6 +63,9 @@ public class Car : MonoBehaviour
                 Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * visual.forward),
                 Time.deltaTime * visualRotationSpeed);
 
+            if (!rubberParticles.isPlaying)
+                rubberParticles.Play();
+
             speed += driftAcceleration * Time.deltaTime;
         }
         else if (Input.GetKey(KeyCode.D))
@@ -70,6 +76,9 @@ public class Car : MonoBehaviour
                 Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * visual.forward),
                 Time.deltaTime * visualRotationSpeed);
 
+            if (!rubberParticles.isPlaying)
+                rubberParticles.Play();
+
             speed += driftAcceleration * Time.deltaTime;
         }
         else
@@ -78,6 +87,7 @@ public class Car : MonoBehaviour
                 visual.localRotation,
                 Quaternion.identity,
                 Time.deltaTime * visualResetRotationSpeed);
+            rubberParticles.Stop();
 
             if (speed <= maxSpeed)
                 speed += acceleration * Time.deltaTime;
