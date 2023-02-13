@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Car : MonoBehaviour
 {
     [SerializeField]
@@ -22,9 +23,25 @@ public class Car : MonoBehaviour
     private float visualRotationSpeed;
     [SerializeField]
     private float visualResetRotationSpeed;
+    [Space]
+    [Header("Particles")]
+    [SerializeField]
+    private ParticleSystem burstParticles;
+    [SerializeField]
+    private ParticleSystem smokeParticles;
 
     private new Rigidbody rigidbody;
     private float speed;
+
+    public void Crash()
+    {
+        enabled = false;
+
+        burstParticles.Play();
+        smokeParticles.Play();
+
+        rigidbody.velocity = Vector3.zero;
+    }
 
     private void Start()
     {
