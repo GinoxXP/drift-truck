@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -6,6 +7,8 @@ public class Inventory : MonoBehaviour
     private int maxCount;
     [SerializeField]
     private int currentCount;
+
+    public event Action CurentCountChanged;
 
     public int MaxCount
     {
@@ -16,7 +19,11 @@ public class Inventory : MonoBehaviour
     public int CurrentCount
     {
         get { return currentCount; }
-        set { currentCount = value; }
+        set
+        {
+            currentCount = value;
+            CurentCountChanged?.Invoke();
+        }
     }
 
     private void Start()
