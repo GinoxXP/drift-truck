@@ -6,6 +6,11 @@ public class Level : MonoBehaviour
 {
     private IEnumerator reloadLevel;
 
+    public void LoadLevel(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+    }
+
     public void ReloadLevel(float time = 0)
     {
         if (reloadLevel != null)
