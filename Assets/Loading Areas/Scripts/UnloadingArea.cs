@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Inventory))]
 public class UnloadingArea : MonoBehaviour
 {
     private Inventory inventory;
@@ -9,7 +8,7 @@ public class UnloadingArea : MonoBehaviour
 
     private void Start()
     {
-        inventory = GetComponent<Inventory>();
+        inventory = GetComponentInParent<Inventory>();
     }
 
     private void OnTriggerEnter(Collider other)
