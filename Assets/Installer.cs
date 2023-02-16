@@ -5,5 +5,6 @@ public class Installer : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<Level>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<Car>().FromComponentInHierarchy().AsSingle();
     }
 }

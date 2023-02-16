@@ -1,19 +1,26 @@
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Inventory))]
 public class LoadLevel : MonoBehaviour
 {
+    private const float LOAD_LEVEL_DELAY = 1.5f;
+
     [SerializeField]
     private string levelName;
 
     private Inventory inventory;
     private Level level;
+    private Car car;
 
     private void OnInventoryCurentCountChanged()
     {
         if(inventory.CurrentCount >= inventory.MaxCount)
-            level.LoadLevel(levelName);
+        {
+            car.Stop();
+            level.LoadLevel(levelName, LOAD_LEVEL_DELAY);
+        }
     }
 
     private void Start()
@@ -28,8 +35,9 @@ public class LoadLevel : MonoBehaviour
     }
 
     [Inject]
-    private void Init(Level level)
+    private void Init(Level level, Car car)
     {
         this.level = level;
+        this.car = car;
     }
 }
