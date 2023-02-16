@@ -4,22 +4,33 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
-    private IEnumerator reloadLevel;
+    private bool isChangingLevel;
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel(string levelName, float time = 0)
     {
-        SceneManager.LoadScene(levelName);
+        if (isChangingLevel)
+            return;
+
+        isChangingLevel = true;
+        StartCoroutine(LoadLevelCoroutine(levelName, time));
     }
 
     public void ReloadLevel(float time = 0)
     {
-        if (reloadLevel != null)
-        {
-            StopCoroutine(reloadLevel);
-            reloadLevel = null;
-        }
-        reloadLevel = ReloadLevelCoroutine(time);
-        StartCoroutine(reloadLevel);
+        if (isChangingLevel)
+            return;
+
+        isChangingLevel = true;
+        StartCoroutine(ReloadLevelCoroutine(time));
+    }
+
+    private IEnumerator LoadLevelCoroutine(string levelName, float time = 0)
+    {
+        yield return new WaitForSeconds(time);
+
+        SceneManager.LoadScene(levelName);
+
+        yield return null;
     }
 
     private IEnumerator ReloadLevelCoroutine(float time)

@@ -34,6 +34,7 @@ public class Car : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private float speed;
+    private bool isStop = true;
 
     public void Crash()
     {
@@ -46,6 +47,15 @@ public class Car : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
+    public void Stop()
+    {
+        enabled = false;
+
+        rubberParticles.Stop();
+
+        rigidbody.velocity = Vector3.zero;
+    }
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -53,6 +63,15 @@ public class Car : MonoBehaviour
 
     private void Update()
     {
+        if (isStop)
+        {
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                isStop = false;
+
+            rigidbody.velocity = Vector3.zero;
+            return;
+        }
+
         speed = rigidbody.velocity.magnitude;
 
         if (Input.GetKey(KeyCode.A))
