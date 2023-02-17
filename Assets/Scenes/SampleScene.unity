@@ -923,7 +923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7552937818172459250, guid: e0f796c8758034645bce6cecd6848db5, type: 3}
       propertyPath: m_Name
-      value: Niva 1 Variant
+      value: Niva
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f796c8758034645bce6cecd6848db5, type: 3}
