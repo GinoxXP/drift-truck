@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Car : MonoBehaviour
@@ -35,6 +37,8 @@ public class Car : MonoBehaviour
     private new Rigidbody rigidbody;
     private float speed;
     private bool isStop = true;
+    private bool isTurningLeft;
+    private bool isTurningRight;
 
     public void Crash()
     {
@@ -56,6 +60,75 @@ public class Car : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (isStop)
+        {
+            isStop = false;
+        }
+
+        var direction = context.ReadValue<float>();
+
+        if (direction == 0)
+        {
+            isTurningLeft = false;
+            isTurningRight = false;
+        }
+        else if (direction < 0)
+        {
+            isTurningLeft = true;
+            isTurningRight = false;
+        }
+        else if (direction > 0)
+        {
+            isTurningLeft = false;
+            isTurningRight = true;
+        }
+    }
+
+    public void OnClick(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnPointer(InputAction.CallbackContext context)
+    {
+
+    }
+
+    private void TurnLeft()
+    {
+        transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+        visual.localRotation = Quaternion.Lerp(
+            visual.localRotation,
+            Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * visual.forward),
+            Time.deltaTime * visualRotationSpeed);
+
+        if (!rubberParticles.isPlaying)
+            rubberParticles.Play();
+    }
+
+    private void TurnRight()
+    {
+        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        visual.localRotation = Quaternion.Lerp(
+            visual.localRotation,
+            Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * visual.forward),
+            Time.deltaTime * visualRotationSpeed);
+
+        if (!rubberParticles.isPlaying)
+            rubberParticles.Play();
+    }
+
+    private void Drive()
+    {
+        visual.localRotation = visual.localRotation = Quaternion.Lerp(
+                visual.localRotation,
+                Quaternion.identity,
+                Time.deltaTime * visualResetRotationSpeed);
+        rubberParticles.Stop();
+    }
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -65,50 +138,26 @@ public class Car : MonoBehaviour
     {
         if (isStop)
         {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-                isStop = false;
-
             rigidbody.velocity = Vector3.zero;
             return;
         }
 
         speed = rigidbody.velocity.magnitude;
 
-        if (Input.GetKey(KeyCode.A))
+        if (isTurningLeft || isTurningRight)
         {
-            transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
-            visual.localRotation = Quaternion.Lerp(
-                visual.localRotation,
-                Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * visual.forward),
-                Time.deltaTime * visualRotationSpeed);
-
-            if (!rubberParticles.isPlaying)
-                rubberParticles.Play();
-
-            speed += driftAcceleration * Time.deltaTime;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-            visual.localRotation = Quaternion.Lerp(
-                visual.localRotation,
-                Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * visual.forward),
-                Time.deltaTime * visualRotationSpeed);
-
-            if (!rubberParticles.isPlaying)
-                rubberParticles.Play();
+            if (isTurningLeft)
+                TurnLeft();
+            else if (isTurningRight)
+                TurnRight();
 
             speed += driftAcceleration * Time.deltaTime;
         }
         else
         {
-            visual.localRotation = visual.localRotation = Quaternion.Lerp(
-                visual.localRotation,
-                Quaternion.identity,
-                Time.deltaTime * visualResetRotationSpeed);
-            rubberParticles.Stop();
+            Drive();
 
-            if (speed <= maxSpeed)
+            if (speed < maxSpeed)
                 speed += acceleration * Time.deltaTime;
         }
 
