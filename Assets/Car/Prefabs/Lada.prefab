@@ -129,6 +129,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lada
       objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: maxSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: minSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: acceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: driftAcceleration
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 2418460907183822335, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -196,6 +212,10 @@ PrefabInstance:
     - target: {fileID: 6702690178861560015, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 8388103500701596113, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: maxCount
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
