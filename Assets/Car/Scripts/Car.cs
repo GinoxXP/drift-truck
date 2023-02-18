@@ -39,6 +39,7 @@ public class Car : MonoBehaviour
     private bool isStop = true;
     private bool isTurningLeft;
     private bool isTurningRight;
+    private Vector2 pointerPosition;
 
     public void Crash()
     {
@@ -88,12 +89,33 @@ public class Car : MonoBehaviour
 
     public void OnClick(InputAction.CallbackContext context)
     {
+        if (isStop)
+        {
+            isStop = false;
+        }
 
+        if (context.canceled)
+        {
+            isTurningLeft = false;
+            isTurningRight = false;
+            return;
+        }
+
+        if (pointerPosition.x < Screen.width / 2)
+        {
+            isTurningLeft = true;
+            isTurningRight = false;
+        }
+        else
+        {
+            isTurningLeft = false;
+            isTurningRight = true;
+        }
     }
 
     public void OnPointer(InputAction.CallbackContext context)
     {
-
+        pointerPosition = context.ReadValue<Vector2>();
     }
 
     private void TurnLeft()

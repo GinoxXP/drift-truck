@@ -6,15 +6,6 @@
             "id": "76805dab-b7d0-4052-80be-c1207a42147c",
             "actions": [
                 {
-                    "name": "Click",
-                    "type": "Button",
-                    "id": "8e29a40a-ee2f-4e7d-9c52-dcf8b5a45875",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pointer",
                     "type": "Value",
                     "id": "88ede8b5-c008-4ad7-b798-2cf502aec2d0",
@@ -31,31 +22,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "Value",
+                    "id": "92eab666-7099-4854-bd83-50241149838d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "ae6544c6-cc64-4876-b02c-c880f4455179",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "29e6633d-e7f2-4229-81d2-974eda9a725a",
-                    "path": "<Mouse>/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "38b4dfd9-fe99-4944-a75d-80709dcd5236",
@@ -99,6 +77,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7cb71352-b3a9-4691-8c38-a1bdff0c2b92",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
