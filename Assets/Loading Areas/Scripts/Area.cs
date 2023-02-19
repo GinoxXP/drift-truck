@@ -40,7 +40,30 @@ public abstract class Area : MonoBehaviour
 
     protected abstract IEnumerator CargoOperation(Inventory carInventory);
 
-    protected IEnumerator UpdateIndicatore(float fullCycleTime)
+    protected IEnumerator ShiftCargo(Inventory fromInventory, Inventory toInventory)
+    {
+        while (fromInventory.CurrentCount > 0 && toInventory.CurrentCount < toInventory.MaxCount)
+        {
+            if (indicatorCoroutine != null)
+            {
+                StopCoroutine(indicatorCoroutine);
+                indicatorCoroutine = null;
+                indicator.Stop();
+            }
+
+            indicatorCoroutine = UpdateIndicatore();
+            StartCoroutine(indicatorCoroutine);
+            yield return new WaitForSeconds(TimeDelay);
+            fromInventory.CurrentCount--;
+            toInventory.CurrentCount++;
+        }
+        indicator.Stop();
+        StopAllCoroutines();
+
+        yield return null;
+    }
+
+    protected IEnumerator UpdateIndicatore()
     {
         indicator.Play(1 / TimeDelay);
         while (true)
