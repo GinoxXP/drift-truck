@@ -4,11 +4,15 @@ using UnityEngine;
 public class LoadingArea : MonoBehaviour
 {
     private Inventory inventory;
+    private RadialIndicator indicator;
+
     private IEnumerator loadingCoroutine;
+    private IEnumerator indicatorCoroutine;
 
     private void Start()
     {
         inventory = GetComponentInParent<Inventory>();
+        indicator = GetComponentInChildren<RadialIndicator>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +28,8 @@ public class LoadingArea : MonoBehaviour
     {
         if (other.TryGetComponent<Inventory>(out var _))
         {
-            StopCoroutine(loadingCoroutine);
+            indicator.Progress = 0;
+            StopAllCoroutines();
         }
     }
 
@@ -32,10 +37,33 @@ public class LoadingArea : MonoBehaviour
     {
         while (inventory.CurrentCount > 0 && carInventory.CurrentCount < carInventory.MaxCount)
         {
+            if (indicatorCoroutine != null)
+            {
+                StopCoroutine(indicatorCoroutine);
+                indicatorCoroutine = null;
+                indicator.Progress = 0;
+            }
+
+            indicatorCoroutine = UpdateIndicatore(0.5f);
+            StartCoroutine(indicatorCoroutine);
+            yield return new WaitForSeconds(0.5f);
             inventory.CurrentCount--;
             carInventory.CurrentCount++;
-            yield return new WaitForSeconds(0.5f);
         }
+
+        yield return null;
+    }
+
+    private IEnumerator UpdateIndicatore(float fullCycleTime)
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            var progress = (float)i / 100;
+            indicator.Progress = progress;
+            yield return null;
+        }
+
+        indicator.Progress = 0;
 
         yield return null;
     }
