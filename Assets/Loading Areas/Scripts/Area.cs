@@ -33,7 +33,7 @@ public abstract class Area : MonoBehaviour
     {
         if (other.TryGetComponent<Inventory>(out var _))
         {
-            indicator.Progress = 0;
+            indicator.Stop();
             StopAllCoroutines();
         }
     }
@@ -42,15 +42,11 @@ public abstract class Area : MonoBehaviour
 
     protected IEnumerator UpdateIndicatore(float fullCycleTime)
     {
-        for (int i = 1; i <= 10; i++)
+        indicator.Play(1 / TimeDelay);
+        while (true)
         {
-            var progress = (float)i / 10;
-            indicator.Progress = progress;
-            yield return new WaitForSeconds(fullCycleTime / 10);
+            indicator.UpdateVisual();
+            yield return null;
         }
-
-        indicator.Progress = 0;
-
-        yield return null;
     }
 }

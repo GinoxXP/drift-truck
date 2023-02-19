@@ -11,7 +11,7 @@ public class LoadingArea : Area
             {
                 StopCoroutine(indicatorCoroutine);
                 indicatorCoroutine = null;
-                indicator.Progress = 0;
+                indicator.Stop();
             }
 
             indicatorCoroutine = UpdateIndicatore(TimeDelay / carInventory.MaxCount);
@@ -20,6 +20,8 @@ public class LoadingArea : Area
             inventory.CurrentCount--;
             carInventory.CurrentCount++;
         }
+        indicator.Stop();
+        StopAllCoroutines();
 
         yield return null;
     }
