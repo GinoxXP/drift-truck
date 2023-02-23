@@ -169,6 +169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Niva
       objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822306, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2418460907183822335, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -213,6 +217,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5591600751125833319, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: m_Size.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591600751125833319, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591600751125833319, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: m_Size.z
+      value: 3.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591600751125833319, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6571116429267752429, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
       propertyPath: m_Size.x
       value: 1.7
@@ -229,7 +249,8 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.96
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6571116429267752429, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
 --- !u!4 &4009957620275355753 stripped
 Transform:
