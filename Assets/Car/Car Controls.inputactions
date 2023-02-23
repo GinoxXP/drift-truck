@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Pointer",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "88ede8b5-c008-4ad7-b798-2cf502aec2d0",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -37,6 +37,28 @@
                 {
                     "name": "",
                     "id": "38b4dfd9-fe99-4944-a75d-80709dcd5236",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7ddf960-62b8-4273-8aa7-99e5be073ee7",
+                    "path": "<Touchscreen>/touch1/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8c38327-b400-435e-a859-6fe306da377e",
                     "path": "<Pointer>/position",
                     "interactions": "",
                     "processors": "",
@@ -80,8 +102,30 @@
                 },
                 {
                     "name": "",
+                    "id": "a2bd7ca6-571f-4717-94f0-716f566dfd54",
+                    "path": "<Touchscreen>/touch0/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7cb71352-b3a9-4691-8c38-a1bdff0c2b92",
-                    "path": "<Touchscreen>/primaryTouch/press",
+                    "path": "<Touchscreen>/touch1/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6d6f2ad-6130-48d9-83c0-724503544fa4",
+                    "path": "<Pointer>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

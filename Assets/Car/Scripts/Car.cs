@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,6 +40,7 @@ public class Car : MonoBehaviour
     private bool isTurningLeft;
     private bool isTurningRight;
     private Vector2 pointerPosition;
+    private IEnumerator moveCoroutine;
 
     public void Crash()
     {
@@ -94,28 +95,47 @@ public class Car : MonoBehaviour
             isStop = false;
         }
 
+        if (context.started)
+        {
+            if(moveCoroutine != null)
+                StopCoroutine(moveCoroutine);
+
+            moveCoroutine = Move();
+            StartCoroutine(moveCoroutine);
+        }
+
         if (context.canceled)
         {
+            if (moveCoroutine != null)
+                StopCoroutine(moveCoroutine);
+
             isTurningLeft = false;
             isTurningRight = false;
             return;
-        }
-
-        if (pointerPosition.x < Screen.width / 2)
-        {
-            isTurningLeft = true;
-            isTurningRight = false;
-        }
-        else
-        {
-            isTurningLeft = false;
-            isTurningRight = true;
         }
     }
 
     public void OnPointer(InputAction.CallbackContext context)
     {
         pointerPosition = context.ReadValue<Vector2>();
+    }
+
+    private IEnumerator Move()
+    {
+        while (true)
+        {
+            if (pointerPosition.x < Screen.width / 2)
+            {
+                isTurningLeft = true;
+                isTurningRight = false;
+            }
+            else
+            {
+                isTurningLeft = false;
+                isTurningRight = true;
+            }
+            yield return null;
+        }
     }
 
     private void TurnLeft()
