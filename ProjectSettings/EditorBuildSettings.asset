@@ -4,5 +4,65 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_1.unity
+    guid: 959011cdab0cbdc4a944821af9c411dc
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_2.unity
+    guid: a57daa482289cd742ba571722086d799
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_3.unity
+    guid: 74c32ccafbb81944897a9b5ab57819b0
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_4.unity
+    guid: f91ab979dfab9a24ca8a2bf79ad77cd2
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_5.unity
+    guid: 26d352f180af25441856a882183a8230
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_6.unity
+    guid: 1cc4dca1f82319d4dafe3dff8707a8bc
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_7.unity
+    guid: 53b3c24e4d2bf2b479fad0f356437a10
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_8.unity
+    guid: bfeac030ada5b164ca31adc9136a8640
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_9.unity
+    guid: 342ec06160be27a449d76ef2d7519c91
+  - enabled: 1
+    path: Assets/Scenes/1/Level1_10.unity
+    guid: 01fc385e14891224ea378fea84284c19
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_1.unity
+    guid: 737c5891c50ed9746b1cac709b78d7e0
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_2.unity
+    guid: 7681e7e11a2ec15429b76a8359f1bb1c
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_3.unity
+    guid: c6db6d9f87f66214cb4f972b2ab7c9cb
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_4.unity
+    guid: ce8205188173f9b45876741d47515c8a
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_5.unity
+    guid: c1477d18ea1f3dc4faeea756a6e3d5a3
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_6.unity
+    guid: e3dcc29290b24334bad91d8f18a3572e
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_7.unity
+    guid: 3e3ccba6595916f479687650165d4e0e
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_8.unity
+    guid: 58f5f392882d06c428c41795e1a816be
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_9.unity
+    guid: bd4d99ec53fda194a9de2d38f44571b4
+  - enabled: 1
+    path: Assets/Scenes/2/Level2_10.unity
+    guid: fde76db39f052eb498e61098296c0096
   m_configObjects: {}
