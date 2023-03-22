@@ -21,21 +21,23 @@ public abstract class Area : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Inventory>(out var carInventory))
-        {
-            TimeDelay = FULL_CARGO_OPERATION_TIME / carInventory.MaxCount;
-            cargoOperationCoroutine = CargoOperation(carInventory);
-            StartCoroutine(cargoOperationCoroutine);
-        }
+        var carInventory = other.GetComponentInParent<Inventory>();
+        if (carInventory == null)
+            return;
+
+        TimeDelay = FULL_CARGO_OPERATION_TIME / carInventory.MaxCount;
+        cargoOperationCoroutine = CargoOperation(carInventory);
+        StartCoroutine(cargoOperationCoroutine);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<Inventory>(out var _))
-        {
-            indicator.Stop();
-            StopAllCoroutines();
-        }
+        var carInventory = other.GetComponentInParent<Inventory>();
+        if (carInventory == null)
+            return;
+
+        indicator.Stop();
+        StopAllCoroutines();
     }
 
     protected abstract IEnumerator CargoOperation(Inventory carInventory);

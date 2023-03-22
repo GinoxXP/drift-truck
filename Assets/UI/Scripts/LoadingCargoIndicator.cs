@@ -17,6 +17,7 @@ public class LoadingCargoIndicator : MonoBehaviour
         inventory = GetComponentInParent<Inventory>();
 
         inventory.CurentCountChanged += ChangeText;
+        ChangeText();
     }
 
     private void OnDestroy()
