@@ -189,11 +189,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7080250507572956532, guid: c1d57705ef3a14e459b5900b9ad42d8c, type: 3}
       propertyPath: maxCount
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -7080250507572956532, guid: c1d57705ef3a14e459b5900b9ad42d8c, type: 3}
       propertyPath: currentCount
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4115618585833786808, guid: c1d57705ef3a14e459b5900b9ad42d8c, type: 3}
       propertyPath: m_Name
@@ -1404,7 +1404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3684816593206671425, guid: 28e81ccbfb764de4e84c79524a229193, type: 3}
       propertyPath: maxCount
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3688890691122527323, guid: 28e81ccbfb764de4e84c79524a229193, type: 3}
       propertyPath: m_LocalScale.x
