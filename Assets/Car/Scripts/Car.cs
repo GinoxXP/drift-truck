@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,16 @@ public class Car : MonoBehaviour
     private bool isTurningRight;
     private Vector2 pointerPosition;
     private IEnumerator moveCoroutine;
+
+    public event Action TurnLeftEvent;
+
+    public event Action TurnRightEvent;
+
+    public event Action DriveEvent;
+
+    public float VisualRotationMaxDegree => visualRotationMaxDegree;
+    public float VisualRotationSpeed => visualRotationSpeed;
+    public float VisualResetRotationSpeed => visualResetRotationSpeed;
 
     public void Crash()
     {
@@ -159,6 +170,8 @@ public class Car : MonoBehaviour
 
         if (!rubberParticles.isPlaying)
             rubberParticles.Play();
+
+        TurnLeftEvent?.Invoke();
     }
 
     private void TurnRight()
@@ -179,6 +192,8 @@ public class Car : MonoBehaviour
 
         if (!rubberParticles.isPlaying)
             rubberParticles.Play();
+
+        TurnRightEvent?.Invoke();
     }
 
     private void Drive()
@@ -197,6 +212,8 @@ public class Car : MonoBehaviour
         }
 
         rubberParticles.Stop();
+
+        DriveEvent?.Invoke();
     }
 
     private void Start()
