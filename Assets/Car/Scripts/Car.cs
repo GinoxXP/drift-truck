@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +21,8 @@ public class Car : MonoBehaviour
     [Header("Visual")]
     [SerializeField]
     private Transform visual;
+    [SerializeField]
+    private List<Transform> rotationWheels;
     [SerializeField]
     private float visualRotationMaxDegree;
     [SerializeField]
@@ -41,6 +45,16 @@ public class Car : MonoBehaviour
     private bool isTurningRight;
     private Vector2 pointerPosition;
     private IEnumerator moveCoroutine;
+
+    public event Action TurnLeftEvent;
+
+    public event Action TurnRightEvent;
+
+    public event Action DriveEvent;
+
+    public float VisualRotationMaxDegree => visualRotationMaxDegree;
+    public float VisualRotationSpeed => visualRotationSpeed;
+    public float VisualResetRotationSpeed => visualResetRotationSpeed;
 
     public void Crash()
     {
@@ -143,11 +157,21 @@ public class Car : MonoBehaviour
         transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
         visual.localRotation = Quaternion.Lerp(
             visual.localRotation,
-            Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * visual.forward),
+            Quaternion.Euler(0, -visualRotationMaxDegree, 0),
             Time.deltaTime * visualRotationSpeed);
+
+        foreach(var wheel in rotationWheels)
+        {
+            wheel.localRotation = Quaternion.Lerp(
+                wheel.localRotation,
+                Quaternion.Euler(0, visualRotationMaxDegree, 0),
+                Time.deltaTime * visualRotationSpeed);
+        }
 
         if (!rubberParticles.isPlaying)
             rubberParticles.Play();
+
+        TurnLeftEvent?.Invoke();
     }
 
     private void TurnRight()
@@ -155,11 +179,21 @@ public class Car : MonoBehaviour
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         visual.localRotation = Quaternion.Lerp(
             visual.localRotation,
-            Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * visual.forward),
+            Quaternion.Euler(0, visualRotationMaxDegree, 0),
             Time.deltaTime * visualRotationSpeed);
+
+        foreach (var wheel in rotationWheels)
+        {
+            wheel.localRotation = Quaternion.Lerp(
+                wheel.localRotation,
+                Quaternion.Euler(0, -visualRotationMaxDegree, 0),
+                Time.deltaTime * visualRotationSpeed);
+        }
 
         if (!rubberParticles.isPlaying)
             rubberParticles.Play();
+
+        TurnRightEvent?.Invoke();
     }
 
     private void Drive()
@@ -168,7 +202,18 @@ public class Car : MonoBehaviour
                 visual.localRotation,
                 Quaternion.identity,
                 Time.deltaTime * visualResetRotationSpeed);
+
+        foreach (var wheel in rotationWheels)
+        {
+            wheel.localRotation = wheel.localRotation = Quaternion.Lerp(
+                wheel.localRotation,
+                Quaternion.identity,
+                Time.deltaTime * visualResetRotationSpeed);
+        }
+
         rubberParticles.Stop();
+
+        DriveEvent?.Invoke();
     }
 
     private void Start()
