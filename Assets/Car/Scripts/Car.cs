@@ -157,14 +157,14 @@ public class Car : MonoBehaviour
         transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
         visual.localRotation = Quaternion.Lerp(
             visual.localRotation,
-            Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * visual.forward),
+            Quaternion.Euler(0, -visualRotationMaxDegree, 0),
             Time.deltaTime * visualRotationSpeed);
 
         foreach(var wheel in rotationWheels)
         {
             wheel.localRotation = Quaternion.Lerp(
                 wheel.localRotation,
-                Quaternion.FromToRotation(wheel.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * wheel.forward),
+                Quaternion.Euler(0, visualRotationMaxDegree, 0),
                 Time.deltaTime * visualRotationSpeed);
         }
 
@@ -179,14 +179,14 @@ public class Car : MonoBehaviour
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         visual.localRotation = Quaternion.Lerp(
             visual.localRotation,
-            Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * visual.forward),
+            Quaternion.Euler(0, visualRotationMaxDegree, 0),
             Time.deltaTime * visualRotationSpeed);
 
         foreach (var wheel in rotationWheels)
         {
             wheel.localRotation = Quaternion.Lerp(
                 wheel.localRotation,
-                Quaternion.FromToRotation(wheel.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * wheel.forward),
+                Quaternion.Euler(0, -visualRotationMaxDegree, 0),
                 Time.deltaTime * visualRotationSpeed);
         }
 

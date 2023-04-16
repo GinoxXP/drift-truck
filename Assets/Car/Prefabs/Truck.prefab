@@ -1347,6 +1347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailer: {fileID: 1615442249596811861}
+  cargo: {fileID: 2408941501722865411}
   origin: {fileID: 15957653934069888}
 --- !u!1001 &9177388822534816768
 PrefabInstance:
