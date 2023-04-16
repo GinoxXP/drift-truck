@@ -149,6 +149,18 @@ PrefabInstance:
       propertyPath: visualResetRotationSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: rotationWheels.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: rotationWheels.Array.data[0]
+      value: 
+      objectReference: {fileID: 7857487394638622125}
+    - target: {fileID: 2418460907183822332, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
+      propertyPath: rotationWheels.Array.data[1]
+      value: 
+      objectReference: {fileID: 2908000577419493397}
     - target: {fileID: 2418460907183822335, guid: 12344f92bf0f221469dafc21c814545c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -375,6 +387,16 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8b3d04dcd3ba686498d77874f3884639, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b70f4caa13e291a4c9be63fb65444796, type: 3}
+--- !u!4 &2908000577419493397 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 240280995636915511, guid: b70f4caa13e291a4c9be63fb65444796, type: 3}
+  m_PrefabInstance: {fileID: 3102678142373817634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7857487394638622125 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5045591185809473679, guid: b70f4caa13e291a4c9be63fb65444796, type: 3}
+  m_PrefabInstance: {fileID: 3102678142373817634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3866519657228456887
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,8 @@ public class Car : MonoBehaviour
     [Header("Visual")]
     [SerializeField]
     private Transform visual;
+    [SerializeField]
+    private List<Transform> rotationWheels;
     [SerializeField]
     private float visualRotationMaxDegree;
     [SerializeField]
@@ -146,6 +149,14 @@ public class Car : MonoBehaviour
             Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * visual.forward),
             Time.deltaTime * visualRotationSpeed);
 
+        foreach(var wheel in rotationWheels)
+        {
+            wheel.localRotation = Quaternion.Lerp(
+                wheel.localRotation,
+                Quaternion.FromToRotation(wheel.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * wheel.forward),
+                Time.deltaTime * visualRotationSpeed);
+        }
+
         if (!rubberParticles.isPlaying)
             rubberParticles.Play();
     }
@@ -158,6 +169,14 @@ public class Car : MonoBehaviour
             Quaternion.FromToRotation(visual.forward, Quaternion.Euler(0, visualRotationMaxDegree, 0) * visual.forward),
             Time.deltaTime * visualRotationSpeed);
 
+        foreach (var wheel in rotationWheels)
+        {
+            wheel.localRotation = Quaternion.Lerp(
+                wheel.localRotation,
+                Quaternion.FromToRotation(wheel.forward, Quaternion.Euler(0, -visualRotationMaxDegree, 0) * wheel.forward),
+                Time.deltaTime * visualRotationSpeed);
+        }
+
         if (!rubberParticles.isPlaying)
             rubberParticles.Play();
     }
@@ -168,6 +187,15 @@ public class Car : MonoBehaviour
                 visual.localRotation,
                 Quaternion.identity,
                 Time.deltaTime * visualResetRotationSpeed);
+
+        foreach (var wheel in rotationWheels)
+        {
+            wheel.localRotation = wheel.localRotation = Quaternion.Lerp(
+                wheel.localRotation,
+                Quaternion.identity,
+                Time.deltaTime * visualResetRotationSpeed);
+        }
+
         rubberParticles.Stop();
     }
 
