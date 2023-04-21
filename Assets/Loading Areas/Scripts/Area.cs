@@ -5,6 +5,11 @@ public abstract class Area : MonoBehaviour
 {
     private const float FULL_CARGO_OPERATION_TIME = 2.5f;
 
+    [SerializeField]
+    private float radius;
+    [SerializeField]
+    private SphereCollider sphereCollider;
+
     protected Inventory inventory;
     protected RadialIndicator indicator;
 
@@ -17,6 +22,12 @@ public abstract class Area : MonoBehaviour
     {
         inventory = GetComponentInParent<Inventory>();
         indicator = GetComponentInChildren<RadialIndicator>();
+    }
+
+    private void OnValidate()
+    {
+        sphereCollider.radius = radius;
+        sphereCollider.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
     }
 
     private void OnTriggerEnter(Collider other)

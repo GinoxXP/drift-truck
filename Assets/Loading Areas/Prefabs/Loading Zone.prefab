@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8400226952614994587}
   - component: {fileID: -7080250507572956532}
+  - component: {fileID: 9099221331152180469}
   m_Layer: 0
   m_Name: Loading Zone
   m_TagString: Untagged
@@ -48,6 +49,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 0
   currentCount: 0
+--- !u!114 &9099221331152180469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115618585833786808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4833b6d3f9bd9ee4dabc4bf2f4364246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0
+  sphereCollider: {fileID: 8442543732902208364}
 --- !u!1 &7629480842747346680
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +73,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7121068075605884548}
   - component: {fileID: 8442543732902208364}
-  - component: {fileID: 3246041561703050627}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -75,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 7629480842747346680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5818482221090306462}
@@ -93,20 +107,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3246041561703050627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7629480842747346680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4833b6d3f9bd9ee4dabc4bf2f4364246, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8157927129344107166
 PrefabInstance:
   m_ObjectHideFlags: 0
