@@ -9,6 +9,8 @@ public abstract class Area : MonoBehaviour
     private float radius;
     [SerializeField]
     private SphereCollider sphereCollider;
+    [SerializeField]
+    private Transform area;
 
     protected Inventory inventory;
     protected RadialIndicator indicator;
@@ -27,7 +29,7 @@ public abstract class Area : MonoBehaviour
     private void OnValidate()
     {
         sphereCollider.radius = radius;
-        sphereCollider.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
+        area.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
     }
 
     private void OnTriggerEnter(Collider other)
