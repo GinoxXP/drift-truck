@@ -1,12 +1,20 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Area : MonoBehaviour
 {
     private const float FULL_CARGO_OPERATION_TIME = 2.5f;
 
+    [SerializeField]
+    private float radius;
+    [SerializeField]
+    private SphereCollider sphereCollider;
+    [SerializeField]
+    private Transform area;
+
     protected Inventory inventory;
-    protected RadialIndicator indicator;
+    protected RadialLoadingIndicator loadingIndicator;
 
     protected IEnumerator cargoOperationCoroutine;
     protected IEnumerator indicatorCoroutine;
@@ -16,7 +24,16 @@ public abstract class Area : MonoBehaviour
     private void Start()
     {
         inventory = GetComponentInParent<Inventory>();
-        indicator = GetComponentInChildren<RadialIndicator>();
+        loadingIndicator = GetComponentInChildren<RadialLoadingIndicator>();
+    }
+
+    private void OnValidate()
+    {
+        sphereCollider.radius = radius;
+        area.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
+
+        foreach (var indicator in GetComponentsInChildren<RadialIndicator>(false))
+            indicator.Radius = radius;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,7 +53,7 @@ public abstract class Area : MonoBehaviour
         if (carInventory == null)
             return;
 
-        indicator.Stop();
+        loadingIndicator.Stop();
         StopAllCoroutines();
     }
 
@@ -50,7 +67,7 @@ public abstract class Area : MonoBehaviour
             {
                 StopCoroutine(indicatorCoroutine);
                 indicatorCoroutine = null;
-                indicator.Stop();
+                loadingIndicator.Stop();
             }
 
             indicatorCoroutine = UpdateIndicatore();
@@ -59,7 +76,7 @@ public abstract class Area : MonoBehaviour
             fromInventory.CurrentCount--;
             toInventory.CurrentCount++;
         }
-        indicator.Stop();
+        loadingIndicator.Stop();
         StopAllCoroutines();
 
         yield return null;
@@ -67,10 +84,10 @@ public abstract class Area : MonoBehaviour
 
     protected IEnumerator UpdateIndicatore()
     {
-        indicator.Play(1 / TimeDelay);
+        loadingIndicator.Play(1 / TimeDelay);
         while (true)
         {
-            indicator.UpdateVisual();
+            loadingIndicator.UpdateVisual();
             yield return null;
         }
     }
