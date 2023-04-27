@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Inventory))]
 public abstract class Area : MonoBehaviour
 {
     private const float FULL_CARGO_OPERATION_TIME = 2.5f;
@@ -23,8 +24,9 @@ public abstract class Area : MonoBehaviour
 
     private void Start()
     {
-        inventory = GetComponentInParent<Inventory>();
+        inventory = GetComponent<Inventory>();
         loadingIndicator = GetComponentInChildren<RadialLoadingIndicator>();
+        OnStart();
     }
 
     private void OnValidate()
@@ -91,4 +93,6 @@ public abstract class Area : MonoBehaviour
             yield return null;
         }
     }
+
+    protected abstract void OnStart();
 }
