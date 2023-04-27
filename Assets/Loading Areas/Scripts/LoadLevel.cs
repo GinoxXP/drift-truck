@@ -10,9 +10,9 @@ public class LoadLevel : MonoBehaviour
 
     private Level level;
 
-    public void Load()
+    public void Load(bool isPermanent = false)
     {
-        level.LoadLevel(levelName, LOAD_LEVEL_DELAY);
+        level.LoadLevel(levelName, isPermanent ? 0 : LOAD_LEVEL_DELAY);
     }
 
     [Inject]
