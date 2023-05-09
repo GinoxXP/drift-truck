@@ -4,4 +4,8 @@ public class LoadingArea : Area
 {
     protected override IEnumerator CargoOperation(Inventory carInventory)
         => ShiftCargo(inventory, carInventory);
+
+    protected override void OnStart()
+    {
+    }
 }
