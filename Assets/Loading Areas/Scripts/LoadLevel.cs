@@ -10,6 +10,8 @@ public class LoadLevel : MonoBehaviour
 
     private Level level;
 
+    public string LevelName => levelName;
+
     public void Load(bool isPermanent = false)
     {
         level.LoadLevel(levelName, isPermanent ? 0 : LOAD_LEVEL_DELAY);
