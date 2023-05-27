@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-[RequireComponent(typeof(LoadLevel))]
+[RequireComponent(typeof(LoadScene))]
 [RequireComponent(typeof(Button))]
 public class LevelButton : MonoBehaviour
 {
     private SaveSystem saveSystem;
-    private LoadLevel loadLevel;
+    private LoadScene loadLevel;
     private Button button;
 
     [SerializeField]
@@ -19,7 +19,7 @@ public class LevelButton : MonoBehaviour
     private void Start()
     {
         button = GetComponent<Button>();
-        loadLevel = GetComponent<LoadLevel>();
+        loadLevel = GetComponent<LoadScene>();
 
         var levelName = loadLevel.LevelName;
         var chapterLevelString = levelName.Replace("Level", string.Empty);
