@@ -3,5 +3,10 @@ using UnityEngine;
 public class LoadScene : ALoadScene
 {
     [SerializeField]
-    protected string levelName;
+    protected new string levelName;
+
+    private void Start()
+    {
+        base.levelName = levelName;
+    }
 }
