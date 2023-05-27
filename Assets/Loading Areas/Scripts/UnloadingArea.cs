@@ -2,10 +2,10 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(LoadLevel))]
+[RequireComponent(typeof(ALoadScene))]
 public class UnloadingArea : Area
 {
-    private LoadLevel loadLevel;
+    private ALoadScene loadLevel;
     private Car car;
 
     protected override IEnumerator CargoOperation(Inventory carInventory)
@@ -13,7 +13,7 @@ public class UnloadingArea : Area
 
     protected override void OnStart()
     {
-        loadLevel = GetComponent<LoadLevel>();
+        loadLevel = GetComponent<ALoadScene>();
         inventory.CurentCountChanged += OnInventoryCurentCountChanged;
     }
 

@@ -1,23 +1,30 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-public class LoadLevel : MonoBehaviour
+public class LoadLevel : ALoadScene
 {
-    private const float LOAD_LEVEL_DELAY = 1.5f;
+    private readonly string LEVEL_KEY = "Level{0}_{1}";
 
     [SerializeField]
-    private string levelName;
+    private int chapter;
+    [SerializeField]
+    private int level;
 
-    private Level level;
+    private SaveSystem saveSystem;
 
-    public void Load(bool isPermanent = false)
+    public int Chapter => chapter;
+    public int Level => level;
+
+    public override void Load(bool isPermanent = false)
     {
-        level.LoadLevel(levelName, isPermanent ? 0 : LOAD_LEVEL_DELAY);
+        saveSystem.SetLevelAccessState(chapter, level, true);
+        levelName = string.Format(LEVEL_KEY, chapter, level);
+        base.Load(isPermanent);
     }
 
     [Inject]
-    private void Init(Level level)
+    private void Init(SaveSystem saveSystem)
     {
-        this.level = level;
+        this.saveSystem = saveSystem;
     }
 }

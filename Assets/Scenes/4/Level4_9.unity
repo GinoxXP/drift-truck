@@ -387,6 +387,14 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5100768909755800963, guid: 28e81ccbfb764de4e84c79524a229193, type: 3}
+      propertyPath: level
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100768909755800963, guid: 28e81ccbfb764de4e84c79524a229193, type: 3}
+      propertyPath: chapter
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100768909755800963, guid: 28e81ccbfb764de4e84c79524a229193, type: 3}
       propertyPath: levelName
       value: Level4_10
       objectReference: {fileID: 0}
