@@ -20,7 +20,7 @@ public class SaveSystem : MonoBehaviour
         mask = mask.Insert(level-1, state ? "1" : "0");
         mask = mask.Remove(level, 1);
 
-        PlayerPrefs.SetString($"{LEVEL_KEY}{level}", mask);
+        PlayerPrefs.SetString($"{LEVEL_KEY}{chapter}", mask);
     }
 
     private string GetLevelChapterMask(int chapter)

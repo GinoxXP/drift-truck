@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-[RequireComponent(typeof(LoadScene))]
+[RequireComponent(typeof(LoadLevel))]
 [RequireComponent(typeof(Button))]
 public class LevelButton : MonoBehaviour
 {
     private SaveSystem saveSystem;
-    private LoadScene loadLevel;
+    private LoadLevel loadLevel;
     private Button button;
 
     [SerializeField]
@@ -19,14 +19,9 @@ public class LevelButton : MonoBehaviour
     private void Start()
     {
         button = GetComponent<Button>();
-        loadLevel = GetComponent<LoadScene>();
+        loadLevel = GetComponent<LoadLevel>();
 
-        var levelName = loadLevel.LevelName;
-        var chapterLevelString = levelName.Replace("Level", string.Empty);
-        var chapter = int.Parse(chapterLevelString.Split("_")[0]);
-        var level = int.Parse(chapterLevelString.Split("_")[1]);
-
-        if (saveSystem.GetLevelAccessState(chapter, level))
+        if (saveSystem.GetLevelAccessState(loadLevel.Chapter, loadLevel.Level))
         {
             lockImage.SetActive(false);
         }

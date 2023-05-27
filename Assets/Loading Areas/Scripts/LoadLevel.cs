@@ -12,6 +12,9 @@ public class LoadLevel : ALoadScene
 
     private SaveSystem saveSystem;
 
+    public int Chapter => chapter;
+    public int Level => level;
+
     public override void Load(bool isPermanent = false)
     {
         saveSystem.SetLevelAccessState(chapter, level, true);
