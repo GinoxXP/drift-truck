@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -104,6 +105,9 @@ public class Car : MonoBehaviour
 
     public void OnClick(InputAction.CallbackContext context)
     {
+        if (IsPointerOverUIObject(pointerPosition))
+            return;
+
         if (isStop)
         {
             isStop = false;
@@ -150,6 +154,15 @@ public class Car : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    private bool IsPointerOverUIObject(Vector2 position)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = position;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
     private void TurnLeft()
