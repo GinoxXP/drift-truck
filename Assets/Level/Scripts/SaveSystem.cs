@@ -24,7 +24,14 @@ public class SaveSystem : MonoBehaviour
     }
 
     private string GetLevelChapterMask(int chapter)
-         => PlayerPrefs.GetString($"{LEVEL_KEY}{chapter}", string.Empty);
+    {
+        var mask = PlayerPrefs.GetString($"{LEVEL_KEY}{chapter}", string.Empty);
+
+        if (mask == string.Empty)
+            mask = "0000000000";
+
+        return mask;
+    }
 
     private void Start()
     {
