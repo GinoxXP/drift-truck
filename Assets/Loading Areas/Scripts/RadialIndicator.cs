@@ -3,43 +3,52 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class RadialIndicator : MonoBehaviour
 {
-    private const string RADIAL_FILLING_KEY = "_RadialFilling";
-    private const string ANIMATION_NAME = "Progress";
+    private const string SIZE_MULTIPLIER_KEY = "_SizeMultiplier";
 
-    ///
-    /// Changed by animator
-    ///
-    [SerializeField]
-    private float progress;
+    private float radius;
 
-    private Animator animator;
-    private Material material;
-
-    public void UpdateVisual()
+    public float Radius
     {
-        material.SetFloat(RADIAL_FILLING_KEY, progress);
+        get { return radius; }
+        set
+        {
+            radius = value;
+
+            var renderer = GetComponent<Renderer>();
+            var material = renderer.sharedMaterial;
+
+            var multiplier = 1f + Solve();
+            material.SetFloat(SIZE_MULTIPLIER_KEY, multiplier);
+        }
     }
 
-    public void Play(float speed)
+    private float Solve()
     {
-        animator.Play(ANIMATION_NAME, -1, 0);
-        animator.speed = speed;
-    }
+        //y = 8000x^2 - 200x + 10
 
-    public void Stop()
-    {
-        progress = 0;
-        UpdateVisual();
-        animator.speed = 0;
-    }
+        var a = 8000;
+        var b = 200;
+        var c = 10 - radius;
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
+        var discriminant = Mathf.Pow(b, 2) - 4 * a * c;
 
-        var renderer = GetComponent<Renderer>();
-        material = renderer.material;
+        if (discriminant < 0)
+            return 0;
 
-        Stop();
+        float x1;
+        float x2;
+
+        if (discriminant == 0)
+        {
+            x1 = -b / (2 * a);
+            x2 = x1;
+        }
+        else
+        {
+            x1 = (-b + Mathf.Sqrt(discriminant)) / (2 * a);
+            x2 = (-b - Mathf.Sqrt(discriminant)) / (2 * a);
+        }
+
+        return x1 > x2 ? x1 : x2;
     }
 }

@@ -1,43 +1,30 @@
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Inventory))]
-public class LoadLevel : MonoBehaviour
+public class LoadLevel : ALoadScene
 {
-    private const float LOAD_LEVEL_DELAY = 1.5f;
+    private readonly string LEVEL_KEY = "Level{0}_{1}";
 
     [SerializeField]
-    private string levelName;
+    private int chapter;
+    [SerializeField]
+    private int level;
 
-    private Inventory inventory;
-    private Level level;
-    private Car car;
+    private SaveSystem saveSystem;
 
-    private void OnInventoryCurentCountChanged()
+    public int Chapter => chapter;
+    public int Level => level;
+
+    public override void Load(bool isPermanent = false)
     {
-        if(inventory.CurrentCount >= inventory.MaxCount)
-        {
-            car.Stop();
-            level.LoadLevel(levelName, LOAD_LEVEL_DELAY);
-        }
-    }
-
-    private void Start()
-    {
-        inventory = GetComponent<Inventory>();
-        inventory.CurentCountChanged += OnInventoryCurentCountChanged;
-    }
-
-    private void OnDestroy()
-    {
-        inventory.CurentCountChanged -= OnInventoryCurentCountChanged;
+        saveSystem.SetLevelAccessState(chapter, level, true);
+        levelName = string.Format(LEVEL_KEY, chapter, level);
+        base.Load(isPermanent);
     }
 
     [Inject]
-    private void Init(Level level, Car car)
+    private void Init(SaveSystem saveSystem)
     {
-        this.level = level;
-        this.car = car;
+        this.saveSystem = saveSystem;
     }
 }

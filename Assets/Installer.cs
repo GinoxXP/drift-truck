@@ -6,5 +6,6 @@ public class Installer : MonoInstaller
     {
         Container.Bind<Level>().FromComponentInHierarchy().AsSingle();
         Container.Bind<Car>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<SaveSystem>().FromComponentInHierarchy().AsSingle();
     }
 }
