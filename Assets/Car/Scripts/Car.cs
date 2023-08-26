@@ -1,6 +1,8 @@
+using ModestTree;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,6 +10,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class Car : MonoBehaviour
 {
+    private enum Control
+    {
+        Left,
+        Right,
+    }
+
     [SerializeField]
     private float maxSpeed;
     [SerializeField]
@@ -42,10 +50,8 @@ public class Car : MonoBehaviour
     private new Rigidbody rigidbody;
     private float speed;
     private bool isStop = true;
-    private bool isTurningLeft;
-    private bool isTurningRight;
     private Vector2 pointerPosition;
-    private IEnumerator moveCoroutine;
+    private List<Control> controlList = new();
 
     public event Action TurnLeftEvent;
 
@@ -77,31 +83,11 @@ public class Car : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (isStop)
-        {
-            isStop = false;
-        }
+    public void OnTurnLeft(InputAction.CallbackContext context)
+        => Move(context, Control.Left);
 
-        var direction = context.ReadValue<float>();
-
-        if (direction == 0)
-        {
-            isTurningLeft = false;
-            isTurningRight = false;
-        }
-        else if (direction < 0)
-        {
-            isTurningLeft = true;
-            isTurningRight = false;
-        }
-        else if (direction > 0)
-        {
-            isTurningLeft = false;
-            isTurningRight = true;
-        }
-    }
+    public void OnTurnRight(InputAction.CallbackContext context)
+        => Move(context, Control.Right);
 
     public void OnClick(InputAction.CallbackContext context)
     {
@@ -111,26 +97,17 @@ public class Car : MonoBehaviour
         if (isStop)
         {
             isStop = false;
-        }
-
-        if (context.started)
-        {
-            if(moveCoroutine != null)
-                StopCoroutine(moveCoroutine);
-
-            moveCoroutine = Move();
-            StartCoroutine(moveCoroutine);
-        }
-
-        if (context.canceled)
-        {
-            if (moveCoroutine != null)
-                StopCoroutine(moveCoroutine);
-
-            isTurningLeft = false;
-            isTurningRight = false;
             return;
         }
+
+        Control currentControl;
+
+        if (pointerPosition.x < Screen.width / 2)
+            currentControl = Control.Left;
+        else
+            currentControl = Control.Right;
+
+        Move(context, currentControl);
     }
 
     public void OnPointer(InputAction.CallbackContext context)
@@ -138,21 +115,24 @@ public class Car : MonoBehaviour
         pointerPosition = context.ReadValue<Vector2>();
     }
 
-    private IEnumerator Move()
+    private void Move(InputAction.CallbackContext context, Control control)
     {
-        while (true)
+        if (isStop)
         {
-            if (pointerPosition.x < Screen.width / 2)
-            {
-                isTurningLeft = true;
-                isTurningRight = false;
-            }
-            else
-            {
-                isTurningLeft = false;
-                isTurningRight = true;
-            }
-            yield return null;
+            isStop = false;
+            return;
+        }
+
+        if (context.canceled)
+        {
+            controlList.Remove(control);
+            return;
+        }
+
+        if (context.started)
+        {
+            controlList.Add(control);
+            return;
         }
     }
 
@@ -244,11 +224,12 @@ public class Car : MonoBehaviour
 
         speed = rigidbody.velocity.magnitude;
 
-        if (isTurningLeft || isTurningRight)
+        if (!controlList.IsEmpty())
         {
-            if (isTurningLeft)
+            var lastControl = controlList.Last();
+            if (lastControl == Control.Left)
                 TurnLeft();
-            else if (isTurningRight)
+            else if (lastControl == Control.Right)
                 TurnRight();
 
             speed += driftAcceleration * Time.deltaTime;
