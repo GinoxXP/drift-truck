@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 924673214522650713}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -81,6 +80,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7002193244086875228, guid: b603a5aad4ffd2441a6f2772c0aac81e, type: 3}
@@ -212,6 +212,18 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7002193245144837808, guid: b603a5aad4ffd2441a6f2772c0aac81e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5705953139445533277}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7002193245144837809, guid: b603a5aad4ffd2441a6f2772c0aac81e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4018898322634173922}
+    - targetCorrespondingSourceObject: {fileID: 7002193245144837809, guid: b603a5aad4ffd2441a6f2772c0aac81e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8063066465634010435}
   m_SourcePrefab: {fileID: 100100000, guid: b603a5aad4ffd2441a6f2772c0aac81e, type: 3}
 --- !u!1 &924673214522650712 stripped
 GameObject:
@@ -230,7 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6259880301c0fbe4f87458aafee026c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: 
+  chapter: 0
+  level: 0
 --- !u!114 &8063066465634010435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +251,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924673214522650712}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d782c5f4e65d5754387c6a67eed1e30f, type: 3}
   m_Name: 
