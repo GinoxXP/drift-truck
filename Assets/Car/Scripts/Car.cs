@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Car : MonoBehaviour
@@ -52,6 +54,8 @@ public class Car : MonoBehaviour
     private bool isStop = true;
     private Vector2 pointerPosition;
     private List<Control> controlList = new();
+    private IEnumerator gestureDetectCoroutine;
+    private bool isClick;
 
     public event Action TurnLeftEvent;
 
@@ -94,25 +98,61 @@ public class Car : MonoBehaviour
         if (IsPointerOverUIObject(pointerPosition))
             return;
 
+        //Control currentControl;
+
+        //if (pointerPosition.x < Screen.width / 2)
+        //    currentControl = Control.Left;
+        //else
+        //    currentControl = Control.Right;
+
+        //Move(context, currentControl);
+
         if (isStop)
         {
             isStop = false;
             return;
         }
 
-        Control currentControl;
+        if (context.started)
+            isClick = true;
 
-        if (pointerPosition.x < Screen.width / 2)
-            currentControl = Control.Left;
-        else
-            currentControl = Control.Right;
-
-        Move(context, currentControl);
+        if (context.canceled)
+            isClick = false;
     }
 
     public void OnPointer(InputAction.CallbackContext context)
     {
         pointerPosition = context.ReadValue<Vector2>();
+    }
+
+    private IEnumerator GestureDetectCoroutine()
+    {
+        while (true)
+        {
+            Control control;
+
+            if (pointerPosition.x < Screen.width / 2)
+                control = Control.Left;
+            else
+                control = Control.Right;
+
+            if (isClick)
+            {
+                if (controlList.Contains(control))
+                    controlList.Remove(control);
+
+                controlList.Add(control);
+            }
+            else
+            {
+                if (controlList.Contains(control))
+                    controlList.Remove(control);
+                else
+                    controlList.Clear();
+            }
+
+            yield return null;
+        }
     }
 
     private void Move(InputAction.CallbackContext context, Control control)
@@ -125,13 +165,21 @@ public class Car : MonoBehaviour
 
         if (context.canceled)
         {
-            controlList.Remove(control);
+            if (controlList.Contains(control))
+                controlList.Remove(control);
+            else
+                controlList.Clear();
+
             return;
         }
 
         if (context.started)
         {
+            if (controlList.Contains(control))
+                controlList.Remove(control);
+
             controlList.Add(control);
+
             return;
         }
     }
@@ -212,6 +260,9 @@ public class Car : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+
+        gestureDetectCoroutine = GestureDetectCoroutine();
+        StartCoroutine(gestureDetectCoroutine);
     }
 
     private void Update()

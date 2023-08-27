@@ -5095,6 +5095,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 477256f5-741d-4df0-9c4e-57b063b86d84
     m_ActionName: Car/Turn Right[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2418460907183822332}
+        m_TargetAssemblyTypeName: Car, Assembly-CSharp
+        m_MethodName: OnTouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 02777d3b-a01f-420f-9d86-93b20604298e
+    m_ActionName: Car/Touch
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Car
