@@ -4,8 +4,6 @@
 
 Racing casual arcade. The player will have to get to the finish line without being able to slow down.
 
-![Gameplay](/.promo/Drift Truck gameplay.mp4)
-
 Drift Truck is a casual racing game. The player is unable to control the speed of the car, but can turn left and right.
 When turning, the car begins to drift and slow down. Otherwise, the car accelerates.
 
