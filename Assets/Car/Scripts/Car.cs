@@ -55,7 +55,7 @@ public class Car : MonoBehaviour
     private Vector2 pointerPosition;
     private List<Control> controlList = new();
     private IEnumerator gestureDetectCoroutine;
-    private bool isClick;
+    private bool? isClick = null;
 
     public event Action TurnLeftEvent;
 
@@ -136,7 +136,13 @@ public class Car : MonoBehaviour
             else
                 control = Control.Right;
 
-            if (isClick)
+            if (!isClick.HasValue)
+            {
+                yield return null;
+                continue;
+            }
+
+            if (isClick.Value)
             {
                 if (controlList.Contains(control))
                     controlList.Remove(control);
@@ -149,6 +155,8 @@ public class Car : MonoBehaviour
                     controlList.Remove(control);
                 else
                     controlList.Clear();
+
+                isClick = null;
             }
 
             yield return null;
