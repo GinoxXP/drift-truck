@@ -1,13 +1,23 @@
+using ModestTree;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Car : MonoBehaviour
 {
+    private enum Control
+    {
+        Left,
+        Right,
+    }
+
     [SerializeField]
     private float maxSpeed;
     [SerializeField]
@@ -42,10 +52,10 @@ public class Car : MonoBehaviour
     private new Rigidbody rigidbody;
     private float speed;
     private bool isStop = true;
-    private bool isTurningLeft;
-    private bool isTurningRight;
     private Vector2 pointerPosition;
-    private IEnumerator moveCoroutine;
+    private List<Control> controlList = new();
+    private IEnumerator gestureDetectCoroutine;
+    private bool isClick;
 
     public event Action TurnLeftEvent;
 
@@ -77,60 +87,37 @@ public class Car : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (isStop)
-        {
-            isStop = false;
-        }
+    public void OnTurnLeft(InputAction.CallbackContext context)
+        => Move(context, Control.Left);
 
-        var direction = context.ReadValue<float>();
-
-        if (direction == 0)
-        {
-            isTurningLeft = false;
-            isTurningRight = false;
-        }
-        else if (direction < 0)
-        {
-            isTurningLeft = true;
-            isTurningRight = false;
-        }
-        else if (direction > 0)
-        {
-            isTurningLeft = false;
-            isTurningRight = true;
-        }
-    }
+    public void OnTurnRight(InputAction.CallbackContext context)
+        => Move(context, Control.Right);
 
     public void OnClick(InputAction.CallbackContext context)
     {
         if (IsPointerOverUIObject(pointerPosition))
             return;
 
+        //Control currentControl;
+
+        //if (pointerPosition.x < Screen.width / 2)
+        //    currentControl = Control.Left;
+        //else
+        //    currentControl = Control.Right;
+
+        //Move(context, currentControl);
+
         if (isStop)
         {
             isStop = false;
+            return;
         }
 
         if (context.started)
-        {
-            if(moveCoroutine != null)
-                StopCoroutine(moveCoroutine);
-
-            moveCoroutine = Move();
-            StartCoroutine(moveCoroutine);
-        }
+            isClick = true;
 
         if (context.canceled)
-        {
-            if (moveCoroutine != null)
-                StopCoroutine(moveCoroutine);
-
-            isTurningLeft = false;
-            isTurningRight = false;
-            return;
-        }
+            isClick = false;
     }
 
     public void OnPointer(InputAction.CallbackContext context)
@@ -138,21 +125,62 @@ public class Car : MonoBehaviour
         pointerPosition = context.ReadValue<Vector2>();
     }
 
-    private IEnumerator Move()
+    private IEnumerator GestureDetectCoroutine()
     {
         while (true)
         {
+            Control control;
+
             if (pointerPosition.x < Screen.width / 2)
+                control = Control.Left;
+            else
+                control = Control.Right;
+
+            if (isClick)
             {
-                isTurningLeft = true;
-                isTurningRight = false;
+                if (controlList.Contains(control))
+                    controlList.Remove(control);
+
+                controlList.Add(control);
             }
             else
             {
-                isTurningLeft = false;
-                isTurningRight = true;
+                if (controlList.Contains(control))
+                    controlList.Remove(control);
+                else
+                    controlList.Clear();
             }
+
             yield return null;
+        }
+    }
+
+    private void Move(InputAction.CallbackContext context, Control control)
+    {
+        if (isStop)
+        {
+            isStop = false;
+            return;
+        }
+
+        if (context.canceled)
+        {
+            if (controlList.Contains(control))
+                controlList.Remove(control);
+            else
+                controlList.Clear();
+
+            return;
+        }
+
+        if (context.started)
+        {
+            if (controlList.Contains(control))
+                controlList.Remove(control);
+
+            controlList.Add(control);
+
+            return;
         }
     }
 
@@ -232,6 +260,9 @@ public class Car : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+
+        gestureDetectCoroutine = GestureDetectCoroutine();
+        StartCoroutine(gestureDetectCoroutine);
     }
 
     private void Update()
@@ -244,11 +275,12 @@ public class Car : MonoBehaviour
 
         speed = rigidbody.velocity.magnitude;
 
-        if (isTurningLeft || isTurningRight)
+        if (!controlList.IsEmpty())
         {
-            if (isTurningLeft)
+            var lastControl = controlList.Last();
+            if (lastControl == Control.Left)
                 TurnLeft();
-            else if (isTurningRight)
+            else if (lastControl == Control.Right)
                 TurnRight();
 
             speed += driftAcceleration * Time.deltaTime;
