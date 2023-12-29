@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{{ PRODUCT_NAME }}}| Crazy Games</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      text-align: center;
+      font-family: "Nunito", sans-serif;
+      font-weight: 500;
+    }
+    .info {
+      display: inline-block;
+      width: 922px;
+    }
+    #info-header {
+      display: flex;
+      background-color: rgb(235, 235, 235);
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      user-select: none;
+    }
+    #info-content {
+      text-align: left;
+    }
+    a {
+      text-decoration: none;
+      color: #6842ff;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/javascript">
+    var slugify = (text) => {
+      return (text || '')
+        .replace(/&/g, ' and ')
+        .replace(/[^a-zA-Z0-9]/g, ' ')
+        .trim()
+        .replace(/\s+/g, '-')
+        .toLowerCase();
+    }
+    var options = {
+      author: "Unity Developer",
+      gameName: "{{{ PRODUCT_NAME }}}",
+      gameSlug: slugify("{{{ PRODUCT_NAME }}}"),
+      gameLink: "https://www.crazygames.com/game/your-game-here",
+      allowFullscreen: true,
+      locale: "en_US",
+      loader: "unity2020",
+      loaderOptions: {
+        unityLoaderUrl: "Build/{{{ LOADER_FILENAME }}}",
+        unityConfigOptions: {
+          "dataUrl": "Build/{{{ DATA_FILENAME }}}",
+          "frameworkUrl": "Build/{{{ FRAMEWORK_FILENAME }}}",
+          "codeUrl": "Build/{{{ CODE_FILENAME }}}",
+#if MEMORY_FILENAME
+          "memoryUrl": "Build/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+          "symbolsUrl": "Build/{{{ SYMBOLS_FILENAME }}}",
+#endif
+          "streamingAssetsUrl": "StreamingAssets",
+        }
+      },
+      category: "UnitySDK",
+      categoryLink: "https://www.crazygames.com",
+      thumbnail: "https://images.crazygames.com/upcoming.png",
+      gameStatus: "published",
+      dollarRate: 1,
+      sdkDebug: true,
+      gameLink: 'https://www.crazygames.com/testgame',
+      forceTestAds: true,
+      forceDisableAPS: true,
+    };
+
+    window.CrazyGames = {};
+    window.CrazyGames.options = options;
+  </script>
+  <iframe id="unity" allow="autoplay; fullscreen" style="width: 922px; height: 532px;"></iframe>
+  <script type="text/javascript">
+    var iframe = document.getElementById('unity');
+    iframe.setAttribute('src', 'template.html' + window.location.search);
+  </script>
+  <br/>
+  <div class="info">
+    <div id="info-header">
+      <div style="flex: 1; text-align: left">Useful information</div>
+      <div>V</div>
+    </div>
+    <div id="info-content">
+      <ul>
+        <li>
+          You can submit your game here
+          <a href="https://developer.crazygames.com/submit" target="_blank"
+            >https://developer.crazygames.com/submit</a
+          >
+        </li>
+        <li>
+          There is no need to upload this template file. You only need to
+          upload the "Build" folder, and "StreamingAssets" if you have one.
+        </li>
+        <li>
+          Have you optimized your build size as much as possible? A smaller
+          build results in a higher load rate, which in turn increases your
+          income. The
+          <b>WebGL optimizer</b> that comes with the SDK may help you do this,
+          and you can access it in Unity under this menu option
+          <i>CrazyGames > WebGL Optimizer</i>. Alternatively, you can check
+          these
+          <a
+            href="https://docs.crazygames.com/other/unity-export-tips/"
+            target="_blank"
+            >export tips</a
+          >.
+        </li>
+        <li>
+          Outside of CrazyGames the SDK will run in demo mode, you'll see demo
+          ads and dummy data. In order to run your game in Crazygames-like
+          conditions, you can submit your game or use our
+          <a href="https://developer.crazygames.com/qatool" target="_blank"
+            >QA Tool</a
+          >
+          to test it.
+        </li>
+        <li>
+          If you wish to upload the game on your domain, don't forget to
+          whitelist it in the CrazySDK settings, otherwise, the sitelock will
+          block it and the game won't start. CrazySDK will not be active on
+          your domain, and calls to it will do nothing.
+        </li>
+        <li>
+          Other useful links:
+          <ul>
+            <li>
+              <a
+                href="https://developer.crazygames.com/qatool"
+                target="_blank"
+                >QA Tool</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://docs.crazygames.com/sdk/unity/"
+                target="_blank"
+                >SDK docs</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://docs.crazygames.com/other/unity-optimizer/"
+                target="_blank"
+                >About WebGL optimizer</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://docs.crazygames.com/general/ads-guidelines/"
+                target="_blank"
+                >Ads guidelines</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://docs.crazygames.com/general/quality-guidelines/"
+                target="_blank"
+                >Quality guidelines</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    document.querySelector("#info-content").style.display = "none";
+    document.querySelector("#info-header").addEventListener("click", () => {
+      const infoContent = document.querySelector("#info-content");
+      infoContent.style.display =
+        infoContent.style.display === "none" ? "block" : "none";
+    });
+  </script>
+</body>
